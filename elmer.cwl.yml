@@ -1,0 +1,31 @@
+#!/usr/bin/env cwl-runner
+
+cwlVersion: v1.0
+class: CommandLineTool
+
+doc: "Run elmer case"
+
+hints:
+  - class: DockerRequirement
+    dockerPull: lvarin/elmerfem:wes
+
+  - class: ResourceRequirement
+    coresMin: 1
+    ramMin: 20
+    outdirMin: 100
+
+inputs:
+  - id: input
+    type: File
+    doc: "Elmer case for simulation"
+    inputBinding:
+      position: 1
+
+outputs:
+  - id: output
+    type: File
+    outputBinding:
+      glob: results.zip
+
+baseCommand: ["entrypoint.sh"]
+
